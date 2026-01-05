@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+== Create an order ==
+
+User <- System : Display all courses
+activate User
+activate System
+User -> System : Consult cart's content
+
+alt#gold Empty cart
+    System --> User : Empty cart display, continue shopping
+else
+    System --> User : Display cart's content
+    deactivate System
+end alt
+
+User -> System : Start order
+activate System
+
+alt#gold is connected
+    System --> User : ask for credentials
+else
+    System --> User : redirect to login
+end alt
+
+User -> System : Confirm payment
+
+@enduml
