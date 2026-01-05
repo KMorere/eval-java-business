@@ -1,4 +1,3 @@
-import daos.CourseDao;
 import models.*;
 import business.Business;
 
@@ -6,8 +5,9 @@ public class Main {
     public static void main(String[] args) {
         tests();
         Business business = new Business();
-        business.DisplayCourses();
-        System.out.println(new CourseDao().read(1));
+        business.displayCourses();
+        business.displayCoursesf("Java");
+        //System.out.println(new CourseDao().read(1));
     }
 
     public static void tests() {
