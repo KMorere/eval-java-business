@@ -3,18 +3,32 @@ package models;
 import business.Business;
 
 public class Course {
+    private int id;
     private String name;
     private String description;
     private int length;
-    private CourseType courseType;
+    private String courseType;
     private float price;
+    private int id_client;
 
-    public Course(String _name, String _desc, int _length, CourseType _type, float _price) {
+    public Course(String _name, String _desc, int _length, String _type, float _price) {
         this.setName(_name);
         this.setDescription(_desc);
         this.setLength(_length);
         this.setType(_type);
         this.setPrice(_price);
+
+        new Business().AddCourse(this);
+    }
+
+    public Course(int _id, String _name, String _desc, int _length, String _type, float _price, int _id_client) {
+        this.id = _id;
+        this.setName(_name);
+        this.setDescription(_desc);
+        this.setLength(_length);
+        this.setType(_type);
+        this.setPrice(_price);
+        this.setClient(_id_client);
 
         new Business().AddCourse(this);
     }
@@ -36,7 +50,7 @@ public class Course {
      * Get the course type as a String.
      */
     public String getType() {
-        String type = "";
+        /*String type = "";
         switch(courseType) {
             case ONSITE:
                 type = "On-site";
@@ -49,11 +63,17 @@ public class Course {
                 break;
         }
 
-        return type;
+        return type;*/
+        return this.courseType;
     }
-    public void setType(CourseType _type) {
+    public void setType(String _type) {
         this.courseType = _type;
     }
+
+    public int getClient() {
+        return this.id_client;
+    }
+    public void setClient(int _client) { this.id_client = _client; }
     //endregion
 
     public String toStringF(int size) {
@@ -72,8 +92,21 @@ public class Course {
      * Enum used to differentiate a course's type.
      */
     public enum CourseType {
-        ONSITE,
-        REMOTE,
-        MIXED;
+        ONSITE(0),
+        REMOTE(1),
+        MIXED(2);
+
+        private final int value;
+        CourseType(int _value) {
+            this.value = _value;
+        }
+
+        public static CourseType getType(int _value) {
+            return CourseType.values()[_value];
+        }
+
+        public int getType() {
+            return this.value;
+        }
     }
 }
