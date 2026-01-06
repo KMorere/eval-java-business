@@ -20,10 +20,14 @@ public class Business {
      */
     public List<Course> displayCourses() {
         System.out.println("Displaying all courses");
-        System.out.println(createLine());
+        System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
+                " | " + createLine());
 
-        for(Course course : courses) {
-            System.out.println(String.format(course.toStringF(getBiggestChar()[0]), course.getName(), course.getLength()));
+        for(int i = 0; i < courses.size(); i++) {
+            Course course = courses.get(i);
+            System.out.printf("%-"+String.valueOf(courses.size()).length()+"s | ", i+1);
+            System.out.println(String.format(course.toStringF(getBiggestChar()[0]),
+                    course.getName(), course.getLength()));
         }
         System.out.println();
 
