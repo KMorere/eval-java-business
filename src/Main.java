@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
-    private static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
 
     private static boolean connected = false;
 
@@ -75,7 +75,6 @@ public class Main {
                 "\n\t 3. View on-site."+
                 "\n\t 4. Filter with keyword.");
 
-        Cart newCart = new Cart(); // TODO: Temporary cart for testing purposes.
         String input = "";
         List<Course> newCourses = new ArrayList<>();
         update: while (!input.equals("0")) {
@@ -83,7 +82,7 @@ public class Main {
             if (scan.hasNextInt()) {
                 switch (scan.nextInt()) {
                     case 0:
-                        System.out.println("Leaving...");
+                        System.out.println("Returned.");
                         break update;
                     case 1:
                         newCourses = new Business().displayCourses();
@@ -106,23 +105,30 @@ public class Main {
             else {
                 // View all information of a course.
                 input = scan.nextLine();
-                // Check if the user wants to view. TODO: Replace the String with a constant.
-                if (input.regionMatches(true, 0, "view", 0, "view".length())) {
-                    // Filter the input to see which course they want.
-                    int inp = Integer.parseInt(input.chars()
-                            .filter(Character::isDigit)
-                            .mapToObj(c -> String.valueOf((char)c))
-                            .collect(Collectors.joining()));
-                    if (inp > 0 && inp < newCourses.size()) { // TODO: Temporary addition to the cart.
-                        System.out.println(newCourses.get(inp - 1));
-                        newCart.addCourse(newCourses.get(inp - 1));
-                    }
-                }
+                // Check if the user wants to view.
+                viewCourse(input, newCourses);
             }
         }
 
-        newCart.displayContent();
         update();
+    }
+
+    private static void viewCourse(String _input, List<Course> _courses) {
+        Cart newCart = new Cart(); // TODO: Temporary cart for testing purposes.
+        // TODO: Replace the String with a constant.
+        if (_input.regionMatches(true, 0, "view", 0, "view".length())) {
+            // Filter the input to see which course they want.
+            int inp = Integer.parseInt(_input.chars()            // Checking all characters.
+                    .filter(Character::isDigit)                 // Filtering out all non-digits.
+                    .mapToObj(c -> String.valueOf((char)c)) // Converting each character to a String.
+                    .collect(Collectors.joining()));            // Joining characters in a single String.
+
+            if (inp > 0 && inp < _courses.size()) {
+                System.out.println(_courses.get(inp - 1));
+                newCart.addCourse(_courses.get(inp - 1)); // TODO: Temporary addition to the cart.
+                newCart.displayContent();
+            }
+        }
     }
 
     public static void tests() {
