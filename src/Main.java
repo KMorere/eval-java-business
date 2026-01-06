@@ -75,6 +75,7 @@ public class Main {
                 "\n\t 3. View on-site."+
                 "\n\t 4. Filter with keyword.");
 
+        Cart newCart = new Cart(); // TODO: Temporary cart for testing purposes.
         String input = "";
         List<Course> newCourses = new ArrayList<>();
         update: while (!input.equals("0")) {
@@ -112,13 +113,15 @@ public class Main {
                             .filter(Character::isDigit)
                             .mapToObj(c -> String.valueOf((char)c))
                             .collect(Collectors.joining()));
-                    if (inp > 0 && inp < newCourses.size()) {
+                    if (inp > 0 && inp < newCourses.size()) { // TODO: Temporary addition to the cart.
                         System.out.println(newCourses.get(inp - 1));
+                        newCart.addCourse(newCourses.get(inp - 1));
                     }
                 }
             }
         }
 
+        newCart.displayContent();
         update();
     }
 
