@@ -22,7 +22,7 @@ public class Business {
         System.out.println(createLine());
 
         for(Course course : courses) {
-            System.out.println(String.format(course.toStringF(getBiggestChar()), course.getName(), course.getLength()));
+            System.out.println(String.format(course.toStringF(getBiggestChar()[0]), course.getName(), course.getLength()));
         }
         System.out.println();
     }
@@ -32,41 +32,61 @@ public class Business {
      * @param key The keyword used to filter through courses.
      */
     public void displayCoursesf(String key) {
-        System.out.println(createLine());
+        System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
+                " | " + createLine());
         List<Course> newCourses = courses
                 .stream()
                 .filter(c -> c.getDescription().contains(key))
                 .collect(Collectors.toList());
 
-        for(Course course : newCourses) {
-            System.out.println(String.format(course.toStringF(getBiggestChar()), course.getName(), course.getLength()));
+        for(int i = 0; i < newCourses.size(); i++) {
+            Course course = newCourses.get(i);
+            System.out.printf("%-"+String.valueOf(newCourses.size()).length()+"s | ", i+1);
+            System.out.println(String.format(course.toStringF(getBiggestChar()[0]),
+                    course.getName(), course.getLength()));
         }
         System.out.println();
     }
 
-    public String createLine() {
-        StringBuilder line = new StringBuilder();
-        for (int i = 0; i < getBiggestChar(); i++)
-            line.append("-");
-        line.append(" | ");
-        for (int i = 0; i < 5; i++)
-            line.append("-");
-        line.append(" | ");
-        for (int i = 0; i < 20; i++)
-            line.append("-");
-        return line.toString();
+    /**
+     * Create a line for the courses console display.
+     */
+    private String createLine() {
+        return chainStringBuilder("-", getBiggestChar()[0]) +
+                " | " +
+                chainStringBuilder("-", 5) +
+                " | " +
+                chainStringBuilder("-", getBiggestChar()[1]);
     }
 
     /**
-     * Find the longest course name.
-     * @return Return the length of the longest course name.
+     * Repeat '_str' '_size' amount of times.
+     * @param _str String to repeat.
+     * @param _size Amount of loops.
+     * @return The created chain.
      */
-    public int getBiggestChar() {
-        int size = 0;
+    private String chainStringBuilder(String _str, int _size) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < _size; i++)
+            sb.append(_str);
+        return sb.toString();
+    }
+
+    /**
+     * Find the longest course name and description.
+     * @return Return the length of the longest course name and description.
+     */
+    private int[] getBiggestChar() {
+        int nameSize = 0;
+        int descSize = 0;
         for (Course course : courses) {
-            if (course.getName().length() > size)
-                size = course.getName().length();
+            if (course.getName().length() > nameSize)
+                nameSize = course.getName().length();
+            if (course.getDescription().length() > descSize)
+                descSize = course.getDescription().length();
             }
-        return size;
+        if (descSize > 20)
+            descSize = 20;
+        return new int[]{nameSize, descSize};
     }
 }

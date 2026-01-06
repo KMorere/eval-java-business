@@ -78,7 +78,7 @@ public class Course {
 
     /**
      * ToString formatted
-     * @param size Size of the length.
+     * @param size Size of the alignment.
      */
     public String toStringF(int size) {
         String desc = this.description;
