@@ -7,6 +7,7 @@ public class Main {
         Business business = new Business();
         business.displayCourses();
         business.displayCoursesf("Java");
+        business.displayByType("Remote");
         //System.out.println(new CourseDao().read(1));
     }
 
@@ -29,7 +30,7 @@ public class Main {
                 "OIIA OIIA",
                 "I like turtles.",
                 1,
-                Course.CourseType.REMOTE,
+                Course.CourseType.ONSITE,
                 0.00f
         );
 

@@ -49,6 +49,27 @@ public class Business {
     }
 
     /**
+     * Display all the courses matching the key.
+     * @param _key THe keyword used to filter through courses.
+     */
+    public void displayByType(String _key) {
+        System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
+                " | " + createLine());
+        List<Course> newCourses = courses
+                .stream()
+                .filter(c -> c.getType().getName().equals(_key))
+                .collect(Collectors.toList());
+
+        for(int i = 0; i < newCourses.size(); i++) {
+            Course course = newCourses.get(i);
+            System.out.printf("%-"+String.valueOf(newCourses.size()).length()+"s | ", i+1);
+            System.out.println(String.format(course.toStringF(getBiggestChar()[0]),
+                    course.getName(), course.getLength()));
+        }
+        System.out.println();
+    }
+
+    /**
      * Create a line for the courses console display.
      */
     private String createLine() {
