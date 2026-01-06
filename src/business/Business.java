@@ -38,7 +38,7 @@ public class Business {
                 " | " + createLine());
         List<Course> newCourses = courses
                 .stream()
-                .filter(c -> c.getDescription().contains(_key))
+                .filter(c -> c.getDescription().toLowerCase().contains(_key.toLowerCase()))
                 .collect(Collectors.toList());
 
         for(int i = 0; i < newCourses.size(); i++) {
