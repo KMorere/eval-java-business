@@ -76,6 +76,10 @@ public class Course {
     public void setClient(int _client) { this.id_client = _client; }
     //endregion
 
+    /**
+     * ToString formatted
+     * @param size Size of the length.
+     */
     public String toStringF(int size) {
         String desc = this.description;
         if (desc.length() > 20)
