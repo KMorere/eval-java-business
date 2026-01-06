@@ -1,6 +1,8 @@
 import models.*;
 import business.Business;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -72,26 +74,36 @@ public class Main {
                 "\n\t 3. View on-site."+
                 "\n\t 4. Filter with keyword.");
 
-        switch(scan.nextInt()) {
-            case 0:
-                System.out.println("Leaving...");
-                break;
-            case 1:
-                new Business().displayCourses();
-                break;
-            case 2:
-                new Business().displayByType("Remote");
-                break;
-            case 3:
-                new Business().displayByType("On-site");
-                break;
-            case 4:
-                System.out.println("Keyword : ");
-                String key = scan.next();
-                new Business().displayCoursesf(key);
-                break;
-            default:
-                break;
+        update: while (scan.hasNextInt()) {
+            List<Course> newCourses = new ArrayList<>();
+            switch(scan.nextInt()) {
+                case 0:
+                    System.out.println("Leaving...");
+                    break update;
+                case 1:
+                    newCourses = new Business().displayCourses();
+                    break;
+                case 2:
+                    newCourses = new Business().displayByType("Remote");
+                    break;
+                case 3:
+                    newCourses = new Business().displayByType("On-site");
+                    break;
+                case 4:
+                    System.out.println("Keyword : ");
+                    String key = scan.next();
+                    newCourses = new Business().displayCoursesf(key);
+                    break;
+                default:
+                    break;
+            }
+
+            if (scan.next().equalsIgnoreCase("view")) {
+                if (scan.hasNextInt()) {
+                    int inp = scan.nextInt();
+                    System.out.println(newCourses.get(inp-1));
+                }
+            }
         }
     }
 

@@ -18,7 +18,7 @@ public class Business {
     /**
      * Display the name, length and description of all courses.
      */
-    public void displayCourses() {
+    public List<Course> displayCourses() {
         System.out.println("Displaying all courses");
         System.out.println(createLine());
 
@@ -26,13 +26,15 @@ public class Business {
             System.out.println(String.format(course.toStringF(getBiggestChar()[0]), course.getName(), course.getLength()));
         }
         System.out.println();
+
+        return courses;
     }
 
     /**
      * Display all the courses containing the specified keyword.
      * @param _key The keyword used to filter through courses.
      */
-    public void displayCoursesf(String _key) {
+    public List<Course> displayCoursesf(String _key) {
         System.out.println("Displaying courses with filter : " + _key);
         System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
                 " | " + createLine());
@@ -48,13 +50,15 @@ public class Business {
                     course.getName(), course.getLength()));
         }
         System.out.println();
+
+        return newCourses;
     }
 
     /**
      * Display all the courses matching the key.
      * @param _key THe keyword used to filter through courses.
      */
-    public void displayByType(String _key) {
+    public List<Course> displayByType(String _key) {
         System.out.println("Displaying all "+ _key.toLowerCase() +" courses");
         System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
                 " | " + createLine());
@@ -70,6 +74,8 @@ public class Business {
                     course.getName(), course.getLength()));
         }
         System.out.println();
+
+        return newCourses;
     }
 
     /**
