@@ -4,11 +4,6 @@ import business.Business;
 public class Main {
     public static void main(String[] args) {
         tests();
-        Business business = new Business();
-        business.displayCourses();
-        business.displayCoursesf("Java");
-        business.displayByType("Remote");
-        //System.out.println(new CourseDao().read(1));
     }
 
     public static void tests() {
@@ -35,5 +30,11 @@ public class Main {
         );
 
         System.out.println(testCourse);
+        
+        Business business = new Business();
+        business.displayCourses();
+        business.displayCoursesf("Java");
+        business.displayByType("Remote");
+        //System.out.println(new CourseDao().read(1));
     }
 }

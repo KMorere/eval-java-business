@@ -19,6 +19,7 @@ public class Business {
      * Display the name, length and description of all courses.
      */
     public void displayCourses() {
+        System.out.println("Displaying all courses");
         System.out.println(createLine());
 
         for(Course course : courses) {
@@ -32,6 +33,7 @@ public class Business {
      * @param _key The keyword used to filter through courses.
      */
     public void displayCoursesf(String _key) {
+        System.out.println("Displaying courses with filter : " + _key);
         System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
                 " | " + createLine());
         List<Course> newCourses = courses
@@ -53,6 +55,7 @@ public class Business {
      * @param _key THe keyword used to filter through courses.
      */
     public void displayByType(String _key) {
+        System.out.println("Displaying all "+ _key.toLowerCase() +" courses");
         System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
                 " | " + createLine());
         List<Course> newCourses = courses
