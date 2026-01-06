@@ -113,6 +113,9 @@ public class Main {
         update();
     }
 
+    /**
+     * View all information of a selected course.
+     */
     private static void viewCourse(String _input, List<Course> _courses) {
         Cart newCart = new Cart(); // TODO: Temporary cart for testing purposes.
         // TODO: Replace the String with a constant.
