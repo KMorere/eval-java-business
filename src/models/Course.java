@@ -72,7 +72,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return "- "+name+" | "+description+" | "+length+" days | "+this.getType()+" | "+price+" €";
+        return "- "+name+" | "+description+" | "+length+" days | "+this.getType().getName()+" | "+price+" €";
     }
 
     /**
