@@ -4,6 +4,7 @@ import business.Business;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     private static Scanner scan = new Scanner(System.in);
@@ -68,43 +69,57 @@ public class Main {
      */
     private static void selectCourse() {
         System.out.println("Select an operation :"+
-                "\n\t 0. Leave."+
+                "\n\t 0. Return."+
                 "\n\t 1. View all."+
                 "\n\t 2. View remote."+
                 "\n\t 3. View on-site."+
                 "\n\t 4. Filter with keyword.");
 
-        update: while (scan.hasNextInt()) {
-            List<Course> newCourses = new ArrayList<>();
-            switch(scan.nextInt()) {
-                case 0:
-                    System.out.println("Leaving...");
-                    break update;
-                case 1:
-                    newCourses = new Business().displayCourses();
-                    break;
-                case 2:
-                    newCourses = new Business().displayByType("Remote");
-                    break;
-                case 3:
-                    newCourses = new Business().displayByType("On-site");
-                    break;
-                case 4:
-                    System.out.println("Keyword : ");
-                    String key = scan.next();
-                    newCourses = new Business().displayCoursesf(key);
-                    break;
-                default:
-                    break;
+        String input = "";
+        List<Course> newCourses = new ArrayList<>();
+        update: while (!input.equals("0")) {
+            // Check the user's input to see which operation they're picking.
+            if (scan.hasNextInt()) {
+                switch (scan.nextInt()) {
+                    case 0:
+                        System.out.println("Leaving...");
+                        break update;
+                    case 1:
+                        newCourses = new Business().displayCourses();
+                        break;
+                    case 2:
+                        newCourses = new Business().displayByType("Remote");
+                        break;
+                    case 3:
+                        newCourses = new Business().displayByType("On-site");
+                        break;
+                    case 4:
+                        System.out.println("Keyword : ");
+                        String key = scan.next();
+                        newCourses = new Business().displayCoursesf(key);
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            if (scan.next().equalsIgnoreCase("view")) {
-                if (scan.hasNextInt()) {
-                    int inp = scan.nextInt();
-                    System.out.println(newCourses.get(inp-1));
+            else {
+                // View all information of a course.
+                input = scan.nextLine();
+                // Check if the user wants to view. TODO: Replace the String with a constant.
+                if (input.regionMatches(true, 0, "view", 0, "view".length())) {
+                    // Filter the input to see which course they want.
+                    int inp = Integer.parseInt(input.chars()
+                            .filter(Character::isDigit)
+                            .mapToObj(c -> String.valueOf((char)c))
+                            .collect(Collectors.joining()));
+                    if (inp > 0 && inp < newCourses.size()) {
+                        System.out.println(newCourses.get(inp - 1));
+                    }
                 }
             }
         }
+
+        update();
     }
 
     public static void tests() {
