@@ -29,14 +29,14 @@ public class Business {
 
     /**
      * Display all the courses containing the specified keyword.
-     * @param key The keyword used to filter through courses.
+     * @param _key The keyword used to filter through courses.
      */
-    public void displayCoursesf(String key) {
+    public void displayCoursesf(String _key) {
         System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
                 " | " + createLine());
         List<Course> newCourses = courses
                 .stream()
-                .filter(c -> c.getDescription().contains(key))
+                .filter(c -> c.getDescription().contains(_key))
                 .collect(Collectors.toList());
 
         for(int i = 0; i < newCourses.size(); i++) {
