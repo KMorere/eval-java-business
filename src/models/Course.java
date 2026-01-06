@@ -7,11 +7,11 @@ public class Course {
     private String name;
     private String description;
     private int length;
-    private String courseType;
+    private CourseType courseType;
     private float price;
     private int id_client;
 
-    public Course(String _name, String _desc, int _length, String _type, float _price) {
+    public Course(String _name, String _desc, int _length, CourseType _type, float _price) {
         this.setName(_name);
         this.setDescription(_desc);
         this.setLength(_length);
@@ -21,7 +21,7 @@ public class Course {
         new Business().addCourse(this);
     }
 
-    public Course(int _id, String _name, String _desc, int _length, String _type, float _price, int _id_client) {
+    public Course(int _id, String _name, String _desc, int _length, CourseType _type, float _price, int _id_client) {
         this.id = _id;
         this.setName(_name);
         this.setDescription(_desc);
@@ -46,27 +46,10 @@ public class Course {
     public float getPrice() { return this.price; }
     public void setPrice(float _price) { this.price = _price; }
 
-    /**
-     * Get the course type as a String.
-     */
-    public String getType() {
-        /*String type = "";
-        switch(courseType) {
-            case ONSITE:
-                type = "On-site";
-                break;
-            case REMOTE:
-                type = "Remote";
-                break;
-            case MIXED:
-                type = "Mixed";
-                break;
-        }
-
-        return type;*/
+    public CourseType getType() {
         return this.courseType;
     }
-    public void setType(String _type) {
+    public void setType(CourseType _type) {
         this.courseType = _type;
     }
 
@@ -96,21 +79,24 @@ public class Course {
      * Enum used to differentiate a course's type.
      */
     public enum CourseType {
-        ONSITE(0),
-        REMOTE(1),
-        MIXED(2);
+        ONSITE("On-site"),
+        REMOTE("Remote"),
+        MIXED("Mixed");
 
-        private final int value;
-        CourseType(int _value) {
-            this.value = _value;
+        public final String label;
+        CourseType(String _label) {
+            this.label = _label;
+        }
+        public String getName() {
+            return this.label;
         }
 
-        public static CourseType getType(int _value) {
-            return CourseType.values()[_value];
-        }
-
-        public int getType() {
-            return this.value;
+        public static CourseType getValue(String _label) {
+            for (CourseType c : values()) {
+                if (java.util.Objects.equals(c.label, _label))
+                    return c;
+            }
+            return null;
         }
     }
 }

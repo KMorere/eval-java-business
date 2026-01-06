@@ -15,21 +15,21 @@ public class Main {
                 "Java Python",
                 "Training course to learn the basics of Java and Python.",
                 20,
-                "Remote",
+                Course.CourseType.REMOTE,
                 19.99f
         );
         new Course(
                 "Egg",
                 "Egg.",
                 100,
-                "Remote",
+                Course.CourseType.REMOTE,
                 0.01f
         );
         new Course(
                 "OIIA OIIA",
                 "I like turtles.",
                 1,
-                "Remote",
+                Course.CourseType.REMOTE,
                 0.00f
         );
 

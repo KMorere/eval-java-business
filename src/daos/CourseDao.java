@@ -17,7 +17,7 @@ public class CourseDao extends Dao<Course> {
             record.setString(1, obj.getName());
             record.setString(2, obj.getDescription());
             record.setInt(3, obj.getLength());
-            record.setString(4, obj.getType());
+            record.setString(4, obj.getType().getName());
             record.setFloat(5, obj.getPrice());
             record.setInt(6, obj.getClient());
 
@@ -51,7 +51,7 @@ public class CourseDao extends Dao<Course> {
                             set.getString("name"),
                             set.getString("description"),
                             set.getInt("length"),
-                            set.getString("type"),
+                            Course.CourseType.getValue(set.getString("type")),
                             set.getFloat("price"),
                             set.getInt("id_client")
                     );
