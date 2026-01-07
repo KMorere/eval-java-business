@@ -70,16 +70,7 @@ public class Main {
                 case 2: // View Cart.
                     cart.displayContent();
                     if (!cart.getBag().isEmpty()) { // Check if the cart has items in it.
-                        System.out.println("Start order ?" +
-                                "\n\t 0. Return." +
-                                "\n\t 1. Yes.");
-                        if (scan.hasNextInt() && scan.nextInt() == 1) {
-                            // Todo: Start order.
-                            if (currentUser == null) {
-                                System.out.println("You must log-in before starting an order.");
-                                startLogin();
-                            }
-                        }
+                        startOrder();
                     }
                     break;
                 case 3: // Log-in.
@@ -199,6 +190,23 @@ public class Main {
                     Business.getInstance().createUser(tempUser);
                     currentUser = tempUser;
                 }
+            }
+        }
+    }
+
+    /**
+     * Start an order.
+     */
+    private static void startOrder() {
+        System.out.println("Start order ?" +
+                "\n\t 0. Return." +
+                "\n\t 1. Yes.");
+        if (scan.hasNextInt() && scan.nextInt() == 1) {
+            if (currentUser == null) {
+                System.out.println("You must log-in before starting an order.");
+                startLogin();
+            } else {
+                // Todo: Start order.
             }
         }
     }
