@@ -1,5 +1,7 @@
 package models;
 
+import business.Business;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class Cart {
     public void displayContent() {
         if (!getBag().isEmpty()) {
             System.out.println("Displaying content :");
-            this.getBag().forEach(System.out::println);
+            Business.getInstance().displayCourses(this.getBag());
         } else {
             System.out.println("Empty cart");
             System.out.println("Ain't nobody here but us chickens...");

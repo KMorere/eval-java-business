@@ -69,6 +69,25 @@ public final class Business {
     }
 
     /**
+     * Display the name, length and description of all courses from a given list.
+     */
+    public List<Course> displayCourses(List<Course> _courses) {
+        System.out.println("Displaying all courses");
+        System.out.println(chainStringBuilder("-", String.valueOf(courses.size()).length()) +
+                " | " + createLine());
+
+        for(int i = 0; i < _courses.size(); i++) {
+            Course course = _courses.get(i);
+            System.out.printf("%-"+String.valueOf(_courses.size()).length()+"s | ", i+1);
+            System.out.println(String.format(course.toStringF(getBiggestChar()[0]),
+                    course.getName(), course.getLength()));
+        }
+        System.out.println();
+
+        return _courses;
+    }
+
+    /**
      * Display all the courses containing the specified keyword.
      * @param _key The keyword used to filter through courses.
      */
