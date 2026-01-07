@@ -155,6 +155,9 @@ public class Main {
         }
     }
 
+    /**
+     * Add a course to the cart.
+     */
     private static void addCourse(String _input, Course _course) {
         if (_input.regionMatches(true, 0, ADD, 0, ADD.length())) {
             // Adding the course if one is selected.
@@ -165,6 +168,9 @@ public class Main {
         }
     }
 
+    /**
+     * Handle login and account creation.
+     */
     private static void startLogin() {
         if(!connected) {
             String login = "";
