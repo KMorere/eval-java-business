@@ -15,6 +15,7 @@ public class Main {
 
     private static Cart cart = new Cart();
     private static Course selectedCourse = null;
+    private static User currentUser;
 
     public static void main(String[] args) {
         //tests();
@@ -35,8 +36,8 @@ public class Main {
                 System.out.println("Leaving...");
                 break;
             case 1:
-                connected = true;
-                throw new RuntimeException("ERROR : FEATURE NOT IMPLEMENTED.");
+                startLogin();
+                break;
             case 2:
                 System.out.println("Update");
                 update();
@@ -145,6 +146,35 @@ public class Main {
             if (selectedCourse != null) {
                 System.out.println("Added "+_course);
                 cart.addCourse(_course);
+            }
+        }
+    }
+
+    private static void startLogin() {
+        if(!connected) {
+            String login = "";
+            String password = "";
+
+            System.out.println("Input your login :");
+            login = scan.next();
+
+            System.out.println("Input your password :");
+            password = scan.next();
+
+            User tempUser = new User(login, password);
+
+            if (Business.getInstance().checkUser(tempUser)) {
+                System.out.println("Login successful");
+                connected = true;
+                currentUser = tempUser;
+            } else {
+                System.out.println("Login un-successful, create account ?" +
+                        "\n\t 0. Yes." +
+                        "\n\t 1. No.");
+                if (scan.hasNextInt() && scan.nextInt() == 0) {
+                    Business.getInstance().createUser(tempUser);
+                    currentUser = tempUser;
+                }
             }
         }
     }

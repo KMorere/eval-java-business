@@ -1,5 +1,6 @@
 package models;
 
+import business.Business;
 import daos.UserDao;
 
 public class User {
@@ -12,7 +13,12 @@ public class User {
         this.setLogin(_login);
         this.setPassword(_password);
 
-        new UserDao().create(this);
+        Business.getInstance().createUser(this);
+    }
+
+    public User(String _login, String _password) {
+        this.setLogin(_login);
+        this.setPassword(_password);
     }
 
     // region getters and setters

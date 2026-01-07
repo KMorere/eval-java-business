@@ -30,6 +30,16 @@ public final class Business {
      */
     public void addCourse(Course _course) { courses.add(_course); }
 
+    /**
+     * Check if a user exists in the database.
+     * @param _user User to check.
+     * @return True if the user exists.
+     */
+    public boolean checkUser(User _user) {
+        User[] users = getUsers();
+        return Arrays.asList(users).contains(_user);
+    }
+
     //region daos
     public Course getCourse(int _id) {
         return new CourseDao().read(_id);
@@ -45,6 +55,14 @@ public final class Business {
 
     public User[] getUsers() {
         return new UserDao().readAll();
+    }
+
+    /**
+     * Create a user in the database.
+     */
+    public void createUser(User _user) {
+        if (!checkUser(_user))
+            new UserDao().create(_user);
     }
     //endregion
 

@@ -38,6 +38,13 @@ public class Cart {
     }
 
     /**
+     * Validate the content of the cart and proceed to payment if connected.
+     */
+    public void startOrder() {
+        // TODO: Create an order on the database if connected.
+    }
+
+    /**
      * Display the content of the bag.
      */
     public void displayContent() {
