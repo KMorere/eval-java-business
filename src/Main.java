@@ -10,6 +10,11 @@ public class Main {
     private static final Scanner scan = new Scanner(System.in);
 
     private static boolean connected = false;
+    private static final String VIEW = "view";
+    private static final String ADD = "add";
+
+    private static Cart cart = new Cart();
+    private static Course selectedCourse = null;
 
     public static void main(String[] args) {
         //tests();
@@ -59,7 +64,8 @@ public class Main {
                 selectCourse();
                 break;
             case 2:
-                throw new RuntimeException("ERROR : FEATURE NOT IMPLEMENTED.");
+                cart.displayContent();
+                break;
             default:
                 break;
         }
@@ -106,8 +112,9 @@ public class Main {
             else {
                 // View all information of a course.
                 input = scan.nextLine();
-                // Check if the user wants to view.
+                // Check if the user wants to view and add.
                 viewCourse(input, newCourses);
+                addCourse(input, selectedCourse);
             }
         }
 
@@ -118,19 +125,26 @@ public class Main {
      * View all information of a selected course.
      */
     private static void viewCourse(String _input, List<Course> _courses) {
-        Cart newCart = new Cart(); // TODO: Temporary cart for testing purposes.
-        // TODO: Replace the String with a constant.
-        if (_input.regionMatches(true, 0, "view", 0, "view".length())) {
+        if (_input.regionMatches(true, 0, VIEW, 0, VIEW.length())) {
             // Filter the input to see which course they want.
-            int inp = Integer.parseInt(_input.chars()            // Checking all characters.
+            int inp = Integer.parseInt(_input.chars()           // Checking all characters.
                     .filter(Character::isDigit)                 // Filtering out all non-digits.
                     .mapToObj(c -> String.valueOf((char)c)) // Converting each character to a String.
                     .collect(Collectors.joining()));            // Joining characters in a single String.
 
             if (inp > 0 && inp < _courses.size()) {
                 System.out.println(_courses.get(inp - 1));
-                newCart.addCourse(_courses.get(inp - 1)); // TODO: Temporary addition to the cart.
-                newCart.displayContent();
+                selectedCourse = _courses.get(inp - 1);
+            }
+        }
+    }
+
+    private static void addCourse(String _input, Course _course) {
+        if (_input.regionMatches(true, 0, ADD, 0, ADD.length())) {
+            // Adding the course if one is selected.
+            if (selectedCourse != null) {
+                System.out.println("Added "+_course);
+                cart.addCourse(_course);
             }
         }
     }

@@ -39,7 +39,12 @@ public class Cart {
      * Display the content of the bag.
      */
     public void displayContent() {
-        System.out.println("Displaying content :");
-        this.getBag().forEach(System.out::println);
+        if (!getBag().isEmpty()) {
+            System.out.println("Displaying content :");
+            this.getBag().forEach(System.out::println);
+        } else {
+            System.out.println("Empty cart");
+            System.out.println("Ain't nobody here but us chickens...");
+        }
     }
 }
