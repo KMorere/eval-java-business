@@ -32,13 +32,13 @@ public class Main {
                 "\n\t 2. Enter as Guest.");
 
         switch(scan.nextInt()) {
-            case 0:
+            case 0: // Leave.
                 System.out.println("Leaving...");
                 break;
-            case 1:
+            case 1: // Log-in.
                 startLogin();
                 break;
-            case 2:
+            case 2: // Guest mode.
                 System.out.println("Update");
                 update();
                 break;
@@ -58,14 +58,29 @@ public class Main {
                 ((connected)?"":"\n\t 3. Log-in."));
 
         switch(scan.nextInt()) {
-            case 0:
+            case 0: // Leave.
                 System.out.println("Leaving...");
                 break;
-            case 1:
+            case 1: // View Course.
                 selectCourse();
                 break;
-            case 2:
+            case 2: // View Cart.
                 cart.displayContent();
+                if (!cart.getBag().isEmpty()) {
+                    System.out.println("Start order ?" +
+                            "\n\t 0. Return." +
+                            "\n\t 1. Yes.");
+                    if (scan.hasNextInt() && scan.nextInt() == 1) {
+                        // Todo: Start order.
+                        if (!connected) {
+                            System.out.println("You must log-in before starting an order.");
+                            startLogin();
+                        }
+                    }
+                }
+                break;
+            case 3: // Log-in.
+                if (!connected) startLogin();
                 break;
             default:
                 break;
@@ -89,19 +104,19 @@ public class Main {
             // Check the user's input to see which operation they're picking.
             if (scan.hasNextInt()) {
                 switch (scan.nextInt()) {
-                    case 0:
+                    case 0: // Leave.
                         System.out.println("Returned.");
                         break update;
-                    case 1:
+                    case 1: // View all.
                         newCourses = Business.getInstance().displayCourses();
                         break;
-                    case 2:
+                    case 2: // View remote.
                         newCourses = Business.getInstance().displayByType("Remote");
                         break;
-                    case 3:
+                    case 3: // View on-site.
                         newCourses = Business.getInstance().displayByType("On-site");
                         break;
-                    case 4:
+                    case 4: // View with filter.
                         System.out.println("Keyword : ");
                         String key = scan.next();
                         newCourses = new Business().displayCoursesf(key);
