@@ -1,5 +1,6 @@
 package daos;
 
+import business.Business;
 import models.Course;
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class CourseDao extends Dao<Course> {
             record.setInt(3, obj.getLength());
             record.setString(4, obj.getType().getName());
             record.setFloat(5, obj.getPrice());
-            record.setInt(6, obj.getClient());
+            record.setInt(6, obj.getClient().getID());
 
             id_course = record.executeUpdate();
 
@@ -54,7 +55,7 @@ public class CourseDao extends Dao<Course> {
                             set.getInt("length"),
                             Course.CourseType.getValue(set.getString("type")),
                             set.getFloat("price"),
-                            set.getInt("id_client")
+                            Business.getInstance().getClient(set.getInt("id_client"))
                     );
                 }
             }
@@ -85,7 +86,7 @@ public class CourseDao extends Dao<Course> {
                             set.getInt("length"),
                             Course.CourseType.getValue(set.getString("type")),
                             set.getFloat("price"),
-                            set.getInt("id_client")
+                            Business.getInstance().getClient(set.getInt("id_client"))
                     ));
                 }
             }

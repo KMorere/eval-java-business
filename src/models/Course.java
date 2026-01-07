@@ -9,7 +9,7 @@ public class Course {
     private int length;
     private CourseType courseType;
     private float price;
-    private int id_client;
+    private Client client;
 
     public Course(String _name, String _desc, int _length, CourseType _type, float _price) {
         this.setName(_name);
@@ -21,14 +21,14 @@ public class Course {
         Business.getInstance().addCourse(this);
     }
 
-    public Course(int _id, String _name, String _desc, int _length, CourseType _type, float _price, int _id_client) {
+    public Course(int _id, String _name, String _desc, int _length, CourseType _type, float _price, Client _client) {
         this.id = _id;
         this.setName(_name);
         this.setDescription(_desc);
         this.setLength(_length);
         this.setType(_type);
         this.setPrice(_price);
-        this.setClient(_id_client);
+        this.setClient(_client);
 
         Business.getInstance().addCourse(this);
     }
@@ -53,10 +53,10 @@ public class Course {
         this.courseType = _type;
     }
 
-    public int getClient() {
-        return this.id_client;
+    public Client getClient() {
+        return this.client;
     }
-    public void setClient(int _client) { this.id_client = _client; }
+    public void setClient(Client _client) { this.client = _client; }
     //endregion
 
     /**

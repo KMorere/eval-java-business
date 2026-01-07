@@ -179,15 +179,18 @@ public class Main {
 
             User tempUser = new User(login, password);
 
-            if (Business.getInstance().checkUser(tempUser)) {
+            if (Business.getInstance().checkUser(tempUser) > 0) {
                 System.out.println("Login successful");
+                tempUser.setID(Business.getInstance().checkUser(tempUser));
                 currentUser = tempUser;
+                update();
             } else {
                 System.out.println("Login un-successful, create account ?" +
                         "\n\t 0. Yes." +
                         "\n\t 1. No.");
                 if (scan.hasNextInt() && scan.nextInt() == 0) {
                     Business.getInstance().createUser(tempUser);
+                    tempUser.setID(Business.getInstance().checkUser(tempUser));
                     currentUser = tempUser;
                 }
             }
@@ -206,7 +209,10 @@ public class Main {
                 System.out.println("You must log-in before starting an order.");
                 startLogin();
             } else {
-                // Todo: Start order.
+                for (Course course : cart.getBag()) {
+                    Order order = new Order(currentUser, course.getClient());
+                    Business.getInstance().createOrder(order);
+                }
             }
         }
     }

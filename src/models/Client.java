@@ -51,5 +51,7 @@ public class Client {
 
     public String getPhone() { return this.phone; }
     public void setPhone(String _phone) { this.phone = _phone; }
+
+    public int getID() { return this.id_client; }
     //endregion
 }

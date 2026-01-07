@@ -1,6 +1,8 @@
 package business;
 
+import daos.ClientDao;
 import daos.CourseDao;
+import daos.OrderDao;
 import daos.UserDao;
 import models.*;
 
@@ -33,18 +35,18 @@ public final class Business {
     /**
      * Check if a user exists in the database.
      * @param _user User to check.
-     * @return True if the user exists.
+     * @return The id of the user.
      */
-    public boolean checkUser(User _user) {
+    public int checkUser(User _user) {
         User[] users = getUsers();
         String login = _user.getLogin();
         String password = _user.getPassword();
 
         for (User user : users)
             if (user.getLogin().equals(login) && user.getPassword().equals(password))
-                return true;
+                return user.getID();
 
-        return false;
+        return 0;
     }
 
     //region daos
@@ -68,8 +70,16 @@ public final class Business {
      * Create a user in the database.
      */
     public void createUser(User _user) {
-        if (!checkUser(_user))
+        if (checkUser(_user) > 0)
             new UserDao().create(_user);
+    }
+
+    public Client getClient(int _id) {
+        return new ClientDao().read(_id);
+    }
+
+    public void createOrder(Order _order) {
+        new OrderDao().create(_order);
     }
     //endregion
 

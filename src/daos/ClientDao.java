@@ -45,10 +45,10 @@ public class ClientDao extends Dao<Client> {
             try (ResultSet set = record.executeQuery()) {
                 if (set.next()) {
                     client = new Client(
-                            set.getInt("id_course"),
+                            set.getInt("id_client"),
                             set.getString("first_name"),
                             set.getString("last_name"),
-                            set.getString("email"),
+                            set.getString("mail"),
                             set.getString("phone")
                     );
                 }
@@ -72,10 +72,10 @@ public class ClientDao extends Dao<Client> {
             try (ResultSet set = record.executeQuery()) {
                 if (set.next()) {
                     client.add(new Client(
-                            set.getInt("id_course"),
+                            set.getInt("id_client"),
                             set.getString("first_name"),
                             set.getString("last_name"),
-                            set.getString("email"),
+                            set.getString("mail"),
                             set.getString("phone")
                     ));
                 }

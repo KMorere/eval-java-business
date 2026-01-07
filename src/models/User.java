@@ -27,5 +27,8 @@ public class User {
 
     public String getPassword() { return this.password; }
     public void setPassword(String _password) { this.password = _password; }
+
+    public int getID() { return this.id_user; }
+    public void setID(int _id) { this.id_user = _id; }
     //endregion
 }

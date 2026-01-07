@@ -43,7 +43,7 @@ public class UserDao extends Dao<User> {
             try (ResultSet set = record.executeQuery()) {
                 if (set.next()) {
                     user = new User(
-                            set.getInt("id_course"),
+                            set.getInt("id_user"),
                             set.getString("login"),
                             set.getString("password")
                     );
