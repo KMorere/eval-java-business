@@ -2,6 +2,7 @@ package daos;
 
 import models.Course;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class CourseDao extends Dao<Course> {
@@ -66,7 +67,33 @@ public class CourseDao extends Dao<Course> {
 
     @Override
     public Course[] readAll() {
-        return new Course[0];
+        ArrayList<Course> course = new ArrayList<>();
+        String query = "SELECT * FROM course " +
+                "LEFT JOIN client " +
+                "ON course.id_client = client.id_client";
+
+        try (Connection connection = connection();
+             PreparedStatement record = connection.prepareStatement(query)) {
+            //record.setInt(1, id);
+
+            try (ResultSet set = record.executeQuery()) {
+                while (set.next()) {
+                    course.add(new Course(
+                            set.getInt("id_course"),
+                            set.getString("name"),
+                            set.getString("description"),
+                            set.getInt("length"),
+                            Course.CourseType.getValue(set.getString("type")),
+                            set.getFloat("price"),
+                            set.getInt("id_client")
+                    ));
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return course.toArray(new Course[0]);
     }
 
     @Override

@@ -20,7 +20,7 @@ public final class Business {
     private static final ArrayList<Course> courses = new ArrayList<>();
 
     public void start_init() {
-        courses.addAll(Arrays.asList(getCourses()));
+        getCourses();
     }
 
     /**
