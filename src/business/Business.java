@@ -1,6 +1,7 @@
 package business;
 
 import daos.CourseDao;
+import daos.UserDao;
 import models.*;
 
 import java.util.ArrayList;
@@ -36,6 +37,14 @@ public final class Business {
 
     public Course[] getCourses() {
         return new CourseDao().readAll();
+    }
+
+    public User getUser(int _id) {
+        return new UserDao().read(_id);
+    }
+
+    public User[] getUsers() {
+        return new UserDao().readAll();
     }
     //endregion
 
