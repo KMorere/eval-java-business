@@ -37,7 +37,14 @@ public final class Business {
      */
     public boolean checkUser(User _user) {
         User[] users = getUsers();
-        return Arrays.asList(users).contains(_user);
+        String login = _user.getLogin();
+        String password = _user.getPassword();
+
+        for (User user : users)
+            if (user.getLogin().equals(login) && user.getPassword().equals(password))
+                return true;
+
+        return false;
     }
 
     //region daos

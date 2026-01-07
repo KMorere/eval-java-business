@@ -59,7 +59,7 @@ public class UserDao extends Dao<User> {
     @Override
     public User[] readAll() {
         ArrayList<User> user = new ArrayList<>();
-        String query = "SELECT * FROM user_ ";
+        String query = "SELECT * FROM user_";
 
         try (Connection connection = connection();
              PreparedStatement record = connection.prepareStatement(query)) {
@@ -67,7 +67,7 @@ public class UserDao extends Dao<User> {
             try (ResultSet set = record.executeQuery()) {
                 while (set.next()) {
                     user.add(new User(
-                            set.getInt("id_course"),
+                            set.getInt("id_user"),
                             set.getString("login"),
                             set.getString("password")
                     ));

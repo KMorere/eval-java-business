@@ -13,7 +13,7 @@ public class User {
         this.setLogin(_login);
         this.setPassword(_password);
 
-        Business.getInstance().createUser(this);
+        //Business.getInstance().createUser(this);
     }
 
     public User(String _login, String _password) {
