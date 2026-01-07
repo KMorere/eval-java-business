@@ -1,13 +1,27 @@
 package business;
 
+import daos.CourseDao;
 import models.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Business {
+public final class Business {
+    private static Business instance = null;
+
+    public static Business getInstance() {
+        if (instance == null)
+            instance = new Business();
+        return instance;
+    }
+
     private static final ArrayList<Course> courses = new ArrayList<>();
+
+    public void start_init() {
+        courses.addAll(Arrays.asList(getCourses()));
+    }
 
     /**
      * Add a course to the list.
@@ -15,6 +29,17 @@ public class Business {
      */
     public void addCourse(Course _course) { courses.add(_course); }
 
+    //region daos
+    public Course getCourse(int _id) {
+        return new CourseDao().read(_id);
+    }
+
+    public Course[] getCourses() {
+        return new CourseDao().readAll();
+    }
+    //endregion
+
+    //region display
     /**
      * Display the name, length and description of all courses.
      */
@@ -105,6 +130,7 @@ public class Business {
             sb.append(_str);
         return sb.toString();
     }
+//endregion
 
     /**
      * Find the longest course name and description.

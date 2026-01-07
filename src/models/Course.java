@@ -18,7 +18,7 @@ public class Course {
         this.setType(_type);
         this.setPrice(_price);
 
-        new Business().addCourse(this);
+        Business.getInstance().addCourse(this);
     }
 
     public Course(int _id, String _name, String _desc, int _length, CourseType _type, float _price, int _id_client) {
@@ -30,7 +30,7 @@ public class Course {
         this.setPrice(_price);
         this.setClient(_id_client);
 
-        new Business().addCourse(this);
+        Business.getInstance().addCourse(this);
     }
 
     //region getters and setters

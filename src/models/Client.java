@@ -9,7 +9,7 @@ public class Client {
      * Create a course and add it to the database.
      */
     public void createCourse(Course _course) {
-        new Business().addCourse(_course);
+        Business.getInstance().addCourse(_course);
         // TODO: Add the course to the database.
     }
 

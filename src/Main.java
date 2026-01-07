@@ -12,7 +12,8 @@ public class Main {
     private static boolean connected = false;
 
     public static void main(String[] args) {
-        tests();
+        //tests();
+        Business.getInstance().start_init();
 
         start();
     }
@@ -85,13 +86,13 @@ public class Main {
                         System.out.println("Returned.");
                         break update;
                     case 1:
-                        newCourses = new Business().displayCourses();
+                        newCourses = Business.getInstance().displayCourses();
                         break;
                     case 2:
-                        newCourses = new Business().displayByType("Remote");
+                        newCourses = Business.getInstance().displayByType("Remote");
                         break;
                     case 3:
-                        newCourses = new Business().displayByType("On-site");
+                        newCourses = Business.getInstance().displayByType("On-site");
                         break;
                     case 4:
                         System.out.println("Keyword : ");
