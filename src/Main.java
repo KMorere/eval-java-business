@@ -211,6 +211,7 @@ public class Main {
             } else {
                 for (Course course : cart.getBag()) {
                     Order order = new Order(currentUser, course.getClient());
+                    order.setTotal(order.getTotal()+course.getPrice());
                     Business.getInstance().createOrder(order);
                 }
             }
