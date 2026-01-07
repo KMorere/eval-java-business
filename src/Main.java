@@ -9,16 +9,14 @@ import java.util.stream.Collectors;
 public class Main {
     private static final Scanner scan = new Scanner(System.in);
 
-    private static boolean connected = false;
     private static final String VIEW = "view";
     private static final String ADD = "add";
 
-    private static Cart cart = new Cart();
+    private static Cart cart = null;
     private static Course selectedCourse = null;
-    private static User currentUser;
+    private static User currentUser = null;
 
     public static void main(String[] args) {
-        //tests();
         Business.getInstance().start_init();
 
         start();
@@ -30,6 +28,9 @@ public class Main {
                 "\n\t 0. Leave."+
                 "\n\t 1. Log-in."+
                 "\n\t 2. Enter as Guest.");
+
+        currentUser = null;
+        cart = new Cart();
 
         switch(scan.nextInt()) {
             case 0: // Leave.
@@ -52,38 +53,41 @@ public class Main {
      */
     private static void update() {
         System.out.println("Select an operation :"+
-                "\n\t 0. Leave."+
+                "\n\t 0. Log-out."+
                 "\n\t 1. View courses."+
                 "\n\t 2. View shopping cart."+
-                ((connected)?"":"\n\t 3. Log-in."));
+                ((currentUser != null)?"":"\n\t 3. Log-in."));
 
-        switch(scan.nextInt()) {
-            case 0: // Leave.
-                System.out.println("Leaving...");
-                break;
-            case 1: // View Course.
-                selectCourse();
-                break;
-            case 2: // View Cart.
-                cart.displayContent();
-                if (!cart.getBag().isEmpty()) {
-                    System.out.println("Start order ?" +
-                            "\n\t 0. Return." +
-                            "\n\t 1. Yes.");
-                    if (scan.hasNextInt() && scan.nextInt() == 1) {
-                        // Todo: Start order.
-                        if (!connected) {
-                            System.out.println("You must log-in before starting an order.");
-                            startLogin();
+        update: while (true) {
+            switch(scan.nextInt()) {
+                case 0: // Leave.
+                    System.out.println("Leaving...");
+                    start();
+                    break update;
+                case 1: // View Course.
+                    selectCourse();
+                    break;
+                case 2: // View Cart.
+                    cart.displayContent();
+                    if (!cart.getBag().isEmpty()) { // Check if the cart has items in it.
+                        System.out.println("Start order ?" +
+                                "\n\t 0. Return." +
+                                "\n\t 1. Yes.");
+                        if (scan.hasNextInt() && scan.nextInt() == 1) {
+                            // Todo: Start order.
+                            if (currentUser == null) {
+                                System.out.println("You must log-in before starting an order.");
+                                startLogin();
+                            }
                         }
                     }
-                }
-                break;
-            case 3: // Log-in.
-                if (!connected) startLogin();
-                break;
-            default:
-                break;
+                    break;
+                case 3: // Log-in.
+                    if (currentUser == null) startLogin();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -172,7 +176,7 @@ public class Main {
      * Handle login and account creation.
      */
     private static void startLogin() {
-        if(!connected) {
+        if(currentUser == null) {
             String login = "";
             String password = "";
 
@@ -186,7 +190,6 @@ public class Main {
 
             if (Business.getInstance().checkUser(tempUser)) {
                 System.out.println("Login successful");
-                connected = true;
                 currentUser = tempUser;
             } else {
                 System.out.println("Login un-successful, create account ?" +
